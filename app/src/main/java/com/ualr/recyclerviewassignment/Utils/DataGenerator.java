@@ -2,6 +2,7 @@ package com.ualr.recyclerviewassignment.Utils;
 
 import android.content.Context;
 
+import com.ualr.recyclerviewassignment.fragments.InboxListFragment;
 import com.ualr.recyclerviewassignment.R;
 import com.ualr.recyclerviewassignment.model.Inbox;
 
@@ -19,7 +20,7 @@ public class DataGenerator {
         return r.nextInt((max - min) + 1) + min;
     }
 
-    public static List<Inbox> getInboxData(Context ctx) {
+    public static List<Inbox> getInboxData(InboxListFragment ctx) {
         List<Inbox> items = new ArrayList<>();
         String name_arr[] = ctx.getResources().getStringArray(R.array.people_names);
         String date_arr[] = ctx.getResources().getStringArray(R.array.general_date);

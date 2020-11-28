@@ -4,12 +4,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ualr.recyclerviewassignment.fragments.InboxListFragment;
 import com.ualr.recyclerviewassignment.R;
 import com.ualr.recyclerviewassignment.model.Inbox;
 
@@ -21,7 +21,7 @@ public class AdapterList extends RecyclerView.Adapter {
     private OnItemClickListener mOnItemClickListener;
     private OnItemClickListener mOnThumbnailClickListener;
 
-    public AdapterList(Context context, List<Inbox> items){
+    public AdapterList(InboxListFragment context, List<Inbox> items){
         this.mItems = items;
         this.mContext = context;
     }
