@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -30,15 +29,11 @@ public class InboxListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        model = ViewModelProvider(getActivity()).get(SharedViewModel.class);
         return inflater.inflate(R.layout.inbox_list_fragment, container, false);
     }
     @Override
-    public void onViewCreated(@NonNull View view,
-                              @Nullable Bundle savedInstanceState) {
-        //Button button = view.findViewById(R.id.button);
-    }
-    private void initComponent() {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        model = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
         dataSource = DataGenerator.getInboxData(this);
         dataSource.addAll(DataGenerator.getInboxData(this));
 
@@ -58,6 +53,7 @@ public class InboxListFragment extends Fragment {
                 adapter.deleteItem(position);
             }
         });
-    }
 
+        //Button button = view.findViewById(R.id.button);
+    }
 }

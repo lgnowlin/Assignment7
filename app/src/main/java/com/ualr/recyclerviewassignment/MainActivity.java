@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import androidx.appcompat.widget.Toolbar;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.ualr.recyclerviewassignment.adapter.AdapterList;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.ualr.recyclerviewassignment.Utils.DataGenerator;
 import com.ualr.recyclerviewassignment.fragments.ForwardDialogFragment;
 import com.ualr.recyclerviewassignment.model.Inbox;
 import com.ualr.recyclerviewassignment.Utils.Tools;
@@ -37,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        model = ViewModelProvider(getActivity()).get(SharedViewModel.class);
+        model = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setContentView(R.layout.activity_list_multi_selection);
@@ -52,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 recyclerView.scrollToPosition(TOP_POSITION);
             }
         });
-
 
     }
     public void showSnackbar(View view) {
