@@ -1,14 +1,17 @@
 package com.ualr.recyclerviewassignment;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.ualr.recyclerviewassignment.adapter.AdapterList;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ualr.recyclerviewassignment.Utils.DataGenerator;
@@ -26,22 +29,23 @@ public class MainActivity extends AppCompatActivity {
     private AdapterList adapter;
     private List<Inbox> dataSource;
     private RecyclerView recyclerView;
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         setContentView(R.layout.activity_list_multi_selection);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment, new InboxListFragment());
         initComponent();
-
+        ft.commit();
     }
 
     private void initComponent() {
         dataSource = DataGenerator.getInboxData(this);
         dataSource.addAll(DataGenerator.getInboxData(this));
-
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
 
         adapter = new AdapterList(this, dataSource);
         recyclerView.setAdapter(adapter);
@@ -71,5 +75,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
+    public void showSnackbar(View view) {
+        // TODO 02. Get the coordinator layout, parent of the snackbar
+        CoordinatorLayout parentView = findViewById(R.id.lyt_parent);
+        // TODO 03. Create a snackbar object by calling the static make method
+        String msg = getResources().getString(R.string.snackbar_message);
+        int duration = Snackbar.LENGTH_LONG;
+        Snackbar snackbar = Snackbar.make(parentView, msg, duration);
+        // TODO 04. Add an action to the snackbar message
+        snackbar.setAction(R.string.snackbar_action, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "Snackbar action tapped");
+            }
+        });
+        // TODO 05. Show the message to the user
+        snackbar.show();
+    }
 }
