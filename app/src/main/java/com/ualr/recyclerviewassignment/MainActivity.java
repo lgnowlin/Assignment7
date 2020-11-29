@@ -31,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_list_multi_selection);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setContentView(R.layout.activity_list_multi_selection);
         inboxListFragment = (InboxListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
 
         mFAB = findViewById(R.id.fab);
