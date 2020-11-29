@@ -20,7 +20,7 @@ public class DataGenerator {
         return r.nextInt((max - min) + 1) + min;
     }
 
-    public static List<Inbox> getInboxData(InboxListFragment ctx) {
+    public static List<Inbox> getInboxData(Context ctx) {
         List<Inbox> items = new ArrayList<>();
         String name_arr[] = ctx.getResources().getStringArray(R.array.people_names);
         String date_arr[] = ctx.getResources().getStringArray(R.array.general_date);
