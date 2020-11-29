@@ -1,5 +1,6 @@
 package com.ualr.recyclerviewassignment.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +21,14 @@ import com.ualr.recyclerviewassignment.model.Inbox;
 
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+
 public class InboxListFragment extends Fragment {
     private RecyclerView recyclerView;
     private AdapterList adapter;
     private List<Inbox> dataSource;
     private SharedViewModel model;
+    private Context context;
 
     @Nullable
     @Override
@@ -37,7 +41,7 @@ public class InboxListFragment extends Fragment {
         dataSource = DataGenerator.getInboxData(this);
         dataSource.addAll(DataGenerator.getInboxData(this));
 
-        adapter = new AdapterList(this, dataSource);
+        adapter = new AdapterList(context, model.getInboxList().getValue());
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new AdapterList.OnItemClickListener() {
@@ -55,5 +59,34 @@ public class InboxListFragment extends Fragment {
         });
 
         //Button button = view.findViewById(R.id.button);
+    }
+
+    public int getSelectedEmailPosition() {
+        return model.getSelectedIndex().getValue();
+    }
+
+    public void addEmail() {
+        Inbox newItem = DataGenerator.getRandomInboxItem(context);
+        List<Inbox> currentData = model.getInboxList().getValue();
+        currentData.add(0, newItem);
+        model.setInboxList(currentData);
+    }
+
+    public boolean deleteEmail() {
+        int currentSelection = model.getSelectedIndex().getValue();
+        List<Inbox> currentData = model.getInboxList().getValue();
+
+        if (currentSelection != -1 && currentData != null) {
+            currentData.remove(currentSelection);
+            model.setInboxList(currentData);
+            model.setSelectedIndex(-1);
+            return true;
+        }
+        return false;
+    }
+
+    public void forwardEmail() {
+        ForwardDialogFragment forwardFragment = ForwardDialogFragment.newInstance(getSelectedEmailPosition());
+        forwardFragment.show(getParentFragmentManager(), TAG);
     }
 }

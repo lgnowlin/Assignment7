@@ -1,13 +1,15 @@
 package com.ualr.recyclerviewassignment;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -30,12 +32,11 @@ public class MainActivity extends AppCompatActivity {
     private List<Inbox> dataSource;
     private RecyclerView recyclerView;
     private static final String TAG = MainActivity.class.getSimpleName();
-    private SharedViewModel model;
+    private InboxListFragment inboxListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        model = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setContentView(R.layout.activity_list_multi_selection);
@@ -52,7 +53,26 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-    public void showSnackbar(View view) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_list_multi_selection_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.delete_action:
+                onDeleteClicked();
+                return true;
+            case R.id.forward_action:
+                onForwardClicked();
+                return true;
+            default: return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void showSnackbar(String view) {
         CoordinatorLayout parentView = findViewById(R.id.lyt_parent);
         String msg = getResources().getString(R.string.snackbar_message);
         int duration = Snackbar.LENGTH_LONG;
@@ -68,6 +88,28 @@ public class MainActivity extends AppCompatActivity {
 
     public void showForwardDialog(View view) {
         ForwardDialogFragment dialog = new ForwardDialogFragment();
-        dialog.show(getSupportFragmentManager(), FRAGMENT_TAG);
+        //dialog.show(getSupportFragmentManager(), FRAGMENT_TAG);
+    }
+
+    public void onFABClicked() {
+        if (inboxListFragment != null && inboxListFragment.isInLayout()) {
+            inboxListFragment.addEmail();
+        }
+    }
+
+    public void onDeleteClicked() {
+        if (inboxListFragment != null && inboxListFragment.isInLayout()) {
+            boolean emailDeleted = inboxListFragment.deleteEmail();
+            if (emailDeleted) {
+                String deleteMsg = getResources().getString(R.string.snackbar_message);
+                showSnackbar(deleteMsg);
+            }
+        }
+    }
+
+    public void onForwardClicked() {
+        if (inboxListFragment != null && inboxListFragment.isInLayout()) {
+            inboxListFragment.forwardEmail();
+        }
     }
 }

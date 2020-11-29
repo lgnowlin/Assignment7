@@ -21,7 +21,7 @@ public class AdapterList extends RecyclerView.Adapter {
     private OnItemClickListener mOnItemClickListener;
     private OnItemClickListener mOnThumbnailClickListener;
 
-    public AdapterList(InboxListFragment context, List<Inbox> items){
+    public AdapterList(Context context, List<Inbox> items){
         this.mItems = items;
         this.mContext = context;
     }

@@ -4,9 +4,14 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum in placerat molestie.  Fusce quis mauris a enim sollicitudin
         \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum in placerat molestie.  Fusce quis mauris a enim sollicitudin
     </string>
+    <string name="delete_icon">Delete Icon</string>
+
     <string name="snackbar_message">Email deleted</string>
     <string name="snackbar_action">delete</string>
     <string name="dialog_title">Forward Message</string>
-    <string name="dialog_msg">delete</string>
+    <string name="dialog_msg">Forward</string>
     <string name="send_btn_label">Send</string>
+    <string name="to_label">To:</string>
+    <string name="name_label">Name:</string>
+    <string name="message_label">Text:</string>
 </resources>
