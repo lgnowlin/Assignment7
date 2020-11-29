@@ -22,15 +22,9 @@ import java.util.List;
 
 import com.ualr.recyclerviewassignment.fragments.InboxListFragment;
 
-//  Implement a new method to delete the corresponding item in the list
-
 public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton mFAB;
-    private static final int TOP_POSITION = 0;
-    private AdapterList adapter;
-    private List<Inbox> dataSource;
-    private RecyclerView recyclerView;
     private static final String TAG = MainActivity.class.getSimpleName();
     private InboxListFragment inboxListFragment;
 

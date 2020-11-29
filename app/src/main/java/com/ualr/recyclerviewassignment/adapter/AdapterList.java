@@ -46,7 +46,7 @@ public class AdapterList extends RecyclerView.Adapter {
 
         if(i.isSelected()){
             viewHolder.lyt_parent.setBackgroundColor(mContext.getResources().getColor(android.R.color.darker_gray));
-            viewHolder.initial.setBackground(mContext.getDrawable(R.drawable.ic_delete_24px));
+            viewHolder.initial.setBackground(mContext.getDrawable(R.drawable.ic_check_toolbar));
             viewHolder.initial.setText("");
         } else {
             viewHolder.lyt_parent.setBackgroundColor(mContext.getResources().getColor(android.R.color.white));
@@ -67,15 +67,13 @@ public class AdapterList extends RecyclerView.Adapter {
 
     public interface OnItemClickListener{
         void OnItemClick(View view, Inbox obj, int position);
+        void onIconClick(View view, Inbox obj, int position);
     }
 
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener){
         this.mOnItemClickListener = mItemClickListener;
     }
 
-    public void setOnThumbnailClickListener(final OnItemClickListener mThumbnailClickListener){
-        this.mOnThumbnailClickListener = mThumbnailClickListener;
-    }
 
     public void updateItems(List<Inbox> inboxList) {
         this.mItems = inboxList;
@@ -109,24 +107,13 @@ public class AdapterList extends RecyclerView.Adapter {
             initial.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnThumbnailClickListener.OnItemClick(v, mItems.get(getLayoutPosition()), getLayoutPosition());
+                    mOnItemClickListener.onIconClick(v, mItems.get(getLayoutPosition()), getLayoutPosition());
                 }
             });
         }
     }
 
-        public void addItem(int position, Inbox inbox){
-            mItems.add(position, inbox);
-            notifyItemInserted(position);
-        }
 
-        public void deleteItem(int position){
-            if (position >= mItems.size())
-                return;
-            mItems.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, getItemCount());
-        }
 
     }
 
