@@ -40,19 +40,17 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setContentView(R.layout.activity_list_multi_selection);
-    }
+        inboxListFragment = (InboxListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
 
-    private void initComponent() {
         mFAB = findViewById(R.id.fab);
         mFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.addItem(TOP_POSITION, dataSource.get(Tools.getRandomNumberInRange(TOP_POSITION,dataSource.size()-1)));
-                recyclerView.scrollToPosition(TOP_POSITION);
+                onFABClicked();
             }
         });
-
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_list_multi_selection_menu, menu);
@@ -84,11 +82,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         snackbar.show();
-    }
-
-    public void showForwardDialog(View view) {
-        ForwardDialogFragment dialog = new ForwardDialogFragment();
-        //dialog.show(getSupportFragmentManager(), FRAGMENT_TAG);
     }
 
     public void onFABClicked() {

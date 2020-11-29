@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.lifecycle.ViewModelProvider;
@@ -37,10 +38,11 @@ public class InboxListFragment extends Fragment {
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        recyclerView = view.findViewById(R.id.recyclerView);
-        model = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
         dataSource = DataGenerator.getInboxData(getActivity());
         dataSource.addAll(DataGenerator.getInboxData(getActivity()));
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        model = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
 
         adapter = new AdapterList(getActivity(), model.getInboxList().getValue());
         recyclerView.setAdapter(adapter);
@@ -59,7 +61,12 @@ public class InboxListFragment extends Fragment {
             }
         });
 
-        //Button button = view.findViewById(R.id.button);
+        model.getInboxList().observe(getViewLifecycleOwner(), new Observer<List<Inbox>>() {
+            @Override
+            public void onChanged(List<Inbox> inboxListItems) {
+                adapter.updateItems(inboxListItems);
+            }
+        });
     }
 
     public int getSelectedEmailPosition() {

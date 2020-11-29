@@ -77,6 +77,11 @@ public class AdapterList extends RecyclerView.Adapter {
         this.mOnThumbnailClickListener = mThumbnailClickListener;
     }
 
+    public void updateItems(List<Inbox> inboxList) {
+        this.mItems = inboxList;
+        notifyDataSetChanged();
+    }
+
     public class InboxViewHolder extends RecyclerView.ViewHolder {
         public TextView from;
         public TextView message;
