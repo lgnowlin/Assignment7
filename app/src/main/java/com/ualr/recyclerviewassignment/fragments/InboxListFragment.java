@@ -38,10 +38,11 @@ public class InboxListFragment extends Fragment {
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        dataSource = DataGenerator.getInboxData(getActivity());
-        dataSource.addAll(DataGenerator.getInboxData(getActivity()));
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        dataSource = DataGenerator.getInboxData(getActivity());
+        dataSource.addAll(DataGenerator.getInboxData(getActivity()));
+        model.setInboxList(dataSource);
         model = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
 
         adapter = new AdapterList(getActivity(), model.getInboxList().getValue());
